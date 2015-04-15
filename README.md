@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ectomorph314/msds.svg)](https://travis-ci.org/ectomorph314/msds) [![Code Climate](https://codeclimate.com/github/ectomorph314/msds.png)](https://codeclimate.com/github/ectomorph314/msds) [![Coverage Status](https://coveralls.io/repos/ectomorph314/msds/badge.svg)](https://coveralls.io/r/ectomorph314/msds)
+[![Build Status](https://travis-ci.org/ectomorph314/msds.svg)](https://travis-ci.org/ectomorph314/msds) [![Code Climate](https://codeclimate.com/github/ectomorph314/MSDS/badges/gpa.svg)](https://codeclimate.com/github/ectomorph314/MSDS) [![Coverage Status](https://coveralls.io/repos/ectomorph314/msds/badge.svg)](https://coveralls.io/r/ectomorph314/msds)
 
 == README
 
@@ -8,23 +8,19 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
-
+2.2.0
 * System dependencies
 
 * Configuration
 
 * Database creation
-
+rake db:create
 * Database initialization
-
+rake db:migrate && rake db:rollback && rake db:migrate
 * How to run the test suite
-
+rspec
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
 
 * ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
