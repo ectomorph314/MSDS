@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ectomorph314/msds.svg)](https://travis-ci.org/ectomorph314/msds) [![Code Climate](https://codeclimate.com/github/ectomorph314/msds.png)](https://codeclimate.com/github/ectomorph314/msds) [![Coverage Status](https://coveralls.io/repos/ectomorph314/msds/badge.svg)](https://coveralls.io/r/ectomorph314/msds)
+
 == README
 
 This README would normally document whatever steps are necessary to get the
