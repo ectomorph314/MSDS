@@ -1,4 +1,7 @@
 require 'rails_helper'
+require 'support/authentication_helper'
+
+include AuthenticationHelper
 
 feature 'user creates new company', %{
   As an authenticated user
@@ -14,11 +17,7 @@ feature 'user creates new company', %{
 
   scenario 'valid company' do
     user = FactoryGirl.create(:user)
-
-    visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
+    sign_in_as(user)
 
     visit new_company_path
     fill_in 'Name', with: 'Launch Academy'
@@ -30,11 +29,7 @@ feature 'user creates new company', %{
 
   scenario 'blank name' do
     user = FactoryGirl.create(:user)
-
-    visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
+    sign_in_as(user)
 
     visit new_company_path
     click_button 'Submit'
@@ -44,11 +39,7 @@ feature 'user creates new company', %{
 
   scenario 'non-unique name' do
     user = FactoryGirl.create(:user)
-
-    visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
+    sign_in_as(user)
 
     visit new_company_path
     fill_in 'Name', with: 'Launch Academy'
@@ -59,5 +50,10 @@ feature 'user creates new company', %{
     click_button 'Submit'
 
     expect(page).to have_content('Name has already been taken')
+  end
+
+  scenario 'visitor' do
+    visit new_company_path
+    expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
 end
