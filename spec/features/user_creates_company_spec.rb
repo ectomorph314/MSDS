@@ -15,7 +15,7 @@ feature 'user creates new company', %{
   # 	User is redirected to company show page, if successful
   # 	User should be presented with form and errors, if unsuccessful
 
-  scenario 'valid company' do
+  scenario 'user adds a valid company' do
     user = FactoryGirl.create(:user)
     sign_in_as(user)
 
@@ -27,7 +27,7 @@ feature 'user creates new company', %{
     expect(page).to have_content('Launch Academy')
   end
 
-  scenario 'blank name' do
+  scenario 'user tries to add company with blank name' do
     user = FactoryGirl.create(:user)
     sign_in_as(user)
 
@@ -37,7 +37,7 @@ feature 'user creates new company', %{
     expect(page).to have_content("Name can't be blank")
   end
 
-  scenario 'non-unique name' do
+  scenario 'user tries to add company with non-unique name' do
     user = FactoryGirl.create(:user)
     sign_in_as(user)
 
@@ -52,7 +52,7 @@ feature 'user creates new company', %{
     expect(page).to have_content('Name has already been taken')
   end
 
-  scenario 'visitor' do
+  scenario 'visitor tries to add company' do
     visit new_company_path
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end

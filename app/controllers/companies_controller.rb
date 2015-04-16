@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
       flash[:notice] = 'Company added successfully.'
       redirect_to company_path(@company)
     else
-      flash[:alert] = @company.errors.full_messages
+      flash[:alert] = @company.errors.full_messages.join(', ')
       redirect_to new_company_path
     end
   end
