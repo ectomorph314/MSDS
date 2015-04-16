@@ -1,0 +1,18 @@
+<div class='row'>
+  <div class='small-12 columns'>
+    <h1>Add New Safety Data Sheet</h1>
+  </div>
+</div>
+
+<%= form_for [@company, @data_sheet] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, autofocus: true %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :sds, 'Safety Data Sheet' %>
+  <%= f.file_field :sds %>
+
+  <%= f.submit 'Submit' %>
+<% end %>

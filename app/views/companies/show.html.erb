@@ -3,3 +3,9 @@
     <h1><%= @company.name %></h1>
   </div>
 </div>
+
+<div class='row'>
+  <div class='small-12 columns'>
+    <%= link_to 'Add a New Data Sheet', new_company_data_sheet_path(@company.id)%>
+  </div>
+</div>

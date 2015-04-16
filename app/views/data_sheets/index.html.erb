@@ -1,0 +1,16 @@
+<div class='row'>
+  <div class='small-12 columns'>
+    <h1>Safety Data Sheets</h1>
+  </div>
+</div>
+
+<div class='row'>
+  <% @data_sheets.each do |data_sheet| %>
+    <div class='small-6 columns'>
+      <%= data_sheet.name %>
+    </div>
+    <div class='small-6 columns'>
+      <%= data_sheet.description %>
+    </div>
+  <% end %>
+</div>

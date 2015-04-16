@@ -50,6 +50,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -75,12 +80,14 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    domain_name (0.5.23)
+    domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.5.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
+    faker (1.4.3)
+      i18n (~> 0.5)
     foundation-rails (5.5.1.2)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
@@ -226,10 +233,12 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara
+  carrierwave
   coffee-rails (~> 4.1.0)
   coveralls
   devise
   factory_girl
+  faker
   foundation-rails
   jbuilder (~> 2.0)
   jquery-rails
