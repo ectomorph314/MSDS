@@ -32,4 +32,24 @@ feature 'user creates new data sheet', %{
     expect(page).to have_content('Borosilicate')
     expect(page).to have_content('Standard Glass')
   end
+
+  scenario 'user tries to add blank form' do
+    user = FactoryGirl.create(:user)
+    company = FactoryGirl.create(:company, user_id: user.id)
+    sign_in_as(user)
+
+    visit new_company_data_sheet_path(company.id)
+    click_button 'Submit'
+
+    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Sds can't be blank")
+  end
+
+  scenario 'visitor tries to add company' do
+    user = FactoryGirl.create(:user)
+    company = FactoryGirl.create(:company, user_id: user.id)
+
+    visit new_company_data_sheet_path(company.id)
+    expect(page).to have_content('You need to sign in or sign up before continuing.')
+  end
 end

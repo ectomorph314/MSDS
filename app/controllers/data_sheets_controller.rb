@@ -17,7 +17,7 @@ class DataSheetsController < ApplicationController
       flash[:notice] = 'Data Sheet added successfully.'
       redirect_to company_data_sheets_path(params[:company_id])
     else
-      flash[:alert] = @data_sheet.errors.full_messages
+      flash[:alert] = @data_sheet.errors.full_messages.join(', ')
       redirect_to new_company_data_sheet_path(params[:company_id])
     end
   end
