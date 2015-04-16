@@ -45,6 +45,7 @@ group :development, :test do
   gem 'faker'
 end
 
+gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rspec-rails', group: [:development, :test]
 gem 'capybara', group: [:development, :test]
 gem 'launchy', group: [:development, :test]
