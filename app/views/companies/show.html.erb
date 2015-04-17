@@ -1,7 +1,11 @@
 <div class='row'>
-  <h1><%= @company.name %></h1>
+  <div class='small-12 columns'>
+    <h2><%= @company.name %></h2>
+  </div>
 </div>
 
 <div class='row'>
-  <%= link_to 'Add a New Data Sheet', new_company_data_sheet_path(@company.id)%>
+  <div class='small-12 columns'>
+    <%= link_to 'Add a New Data Sheet', new_company_data_sheet_path(@company.id)%>
+  </div>
 </div>
