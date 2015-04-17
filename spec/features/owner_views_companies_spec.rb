@@ -12,7 +12,7 @@ feature 'owner views company list', %{
   #   Owner visits the company index page
   # 	Owner sees list of company names
 
-  scenario 'user adds a valid company' do
+  scenario 'owner views company list' do
     user = FactoryGirl.create(:user)
     company = FactoryGirl.create(:company, user_id: user.id)
     sign_in_as(user)

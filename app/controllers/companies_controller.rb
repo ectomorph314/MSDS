@@ -26,9 +26,18 @@ class CompaniesController < ApplicationController
   end
 
   def edit
+    @company = Company.find(params[:id])
   end
 
   def update
+    @company = Company.find(params[:id])
+    if @company.update_attributes(company_params)
+      flash[:notice] = 'Company edited successfully.'
+      redirect_to company_path(@company)
+    else
+      flash[:alert] = @company.errors.full_messages.join(', ')
+      redirect_to edit_company_path(@company.id)
+    end
   end
 
   def delete
