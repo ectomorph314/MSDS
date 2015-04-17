@@ -1,18 +1,46 @@
 <div class='row'>
   <div class='small-12 columns'>
-    <h1>Add New Safety Data Sheet</h1>
+    <h2>Add New Safety Data Sheet</h2>
   </div>
 </div>
 
 <%= form_for [@company, @data_sheet], html: {multipart: true} do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, autofocus: true %>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= f.label :name %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= f.text_field :name, autofocus: true %>
+    </div>
+  </div>
 
-  <%= f.label :description %>
-  <%= f.text_area :description %>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= f.label :description %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= f.text_area :description %>
+    </div>
+  </div>
 
-  <%= f.label :sds, 'Safety Data Sheet' %>
-  <%= f.file_field :sds %>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= f.label :sds, 'Safety Data Sheet' %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= f.file_field :sds %>
+    </div>
+  </div>
 
-  <%= f.submit 'Submit' %>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= f.submit 'Submit', class: 'button radius' %>
+    </div>
+  </div>
 <% end %>

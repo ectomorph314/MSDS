@@ -1,16 +1,18 @@
 <div class='row'>
   <div class='small-12 columns'>
-    <h1>Safety Data Sheets</h1>
+    <h2>Safety Data Sheets</h2>
   </div>
 </div>
 
-<div class='row'>
+<ul>
   <% @data_sheets.each do |data_sheet| %>
-    <div class='small-6 columns'>
-      <%= data_sheet.name %>
-    </div>
-    <div class='small-6 columns'>
-      <%= data_sheet.description %>
+    <div class='row'>
+      <div class='small-12 columns'>
+        <li>
+          <a href=<%= "#{data_sheet.sds}" %>><%= data_sheet.name %></a>
+          <%= data_sheet.description %>
+        </li>
+      </div>
     </div>
   <% end %>
-</div>
+</ul>
