@@ -10,4 +10,10 @@ FactoryGirl.define do
   factory :company do
     sequence(:name) {|n| "#{n} Inc." }
   end
+
+  factory :data_sheet do
+    name 'Poison'
+    description 'Bad for you'
+    sds { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'fixtures', 'OSHA3514.pdf')) }
+  end
 end
