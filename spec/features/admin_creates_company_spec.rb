@@ -52,7 +52,7 @@ feature 'admin creates new company', %{
     expect(page).to have_content('Name has already been taken')
   end
 
-  scenario 'visitor tries to add company' do
+  scenario 'visitor tries to create a company' do
     visit new_company_path
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end

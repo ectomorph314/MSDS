@@ -58,7 +58,7 @@ feature 'admin creates new data sheet', %{
     expect(page).to have_content("files, allowed types: pdf")
   end
 
-  scenario 'visitor tries to add company' do
+  scenario 'visitor tries to create a datasheet' do
     user = FactoryGirl.create(:user)
     company = FactoryGirl.create(:company, user_id: user.id)
 
