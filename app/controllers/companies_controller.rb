@@ -1,6 +1,10 @@
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @companies = Company.all
+  end
+
   def show
     @company = Company.find(params[:id])
   end
@@ -19,6 +23,15 @@ class CompaniesController < ApplicationController
       flash[:alert] = @company.errors.full_messages.join(', ')
       redirect_to new_company_path
     end
+  end
+
+  def edit
+  end
+
+  def update
+  end
+
+  def delete
   end
 
   protected

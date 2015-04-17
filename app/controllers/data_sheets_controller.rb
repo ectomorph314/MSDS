@@ -22,6 +22,15 @@ class DataSheetsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+  end
+
+  def delete
+  end
+
   protected
   def data_sheet_params
     params.require(:data_sheet).permit(:name, :description, :sds)
