@@ -28,6 +28,7 @@ feature 'admin edits a data sheet', %{
     fill_in 'Description', with: 'Standard Glass'
     click_on 'Update'
 
+    expect(page).to have_content('Data sheet edited successfully.')
     expect(page).to have_content('Borosilicate')
     expect(page).to have_content('Standard Glass')
   end

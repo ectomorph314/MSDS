@@ -9,13 +9,11 @@ feature 'admin deletes company', %{
   So that my company doesn't use the app
 } do
   # Acceptance Criteria:
-  #   Admin clicks to create a new company
-  # 	Admin fills in a name (required, unique)
-  # 	Admin submits form
-  # 	Admin is redirected to company show page, if successful
-  # 	Admin should be presented with form and errors, if unsuccessful
+  #   Admin clicks to delete a company
+  # 	Admin confirms that they want to delete
+  # 	Admin is redirected
 
-  scenario 'admin adds a valid company' do
+  scenario 'admin deletes a company' do
     user = FactoryGirl.create(:user)
     company = FactoryGirl.create(:company, user_id: user.id)
     sign_in_as(user)

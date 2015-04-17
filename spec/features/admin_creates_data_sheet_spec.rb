@@ -29,6 +29,7 @@ feature 'admin creates new data sheet', %{
     attach_file('Safety Data Sheet', "#{Rails.root}/spec/fixtures/OSHA3514.pdf")
     click_on 'Submit'
 
+    expect(page).to have_content('Data sheet added successfully.')
     expect(page).to have_content('Borosilicate')
     expect(page).to have_content('Standard Glass')
   end
