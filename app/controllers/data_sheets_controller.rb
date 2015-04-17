@@ -39,7 +39,7 @@ class DataSheetsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
   end
 
   protected

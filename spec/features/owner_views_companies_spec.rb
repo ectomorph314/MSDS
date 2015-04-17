@@ -22,6 +22,9 @@ feature 'owner views company list', %{
   end
 
   scenario 'visitor tries to view company list' do
+    user = FactoryGirl.create(:user)
+    FactoryGirl.create(:company, user_id: user.id)
+
     visit companies_path
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end

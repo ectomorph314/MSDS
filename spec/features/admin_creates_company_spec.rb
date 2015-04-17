@@ -21,7 +21,7 @@ feature 'admin creates new company', %{
 
     visit new_company_path
     fill_in 'Name', with: 'Launch Academy'
-    click_button 'Submit'
+    click_on 'Submit'
 
     expect(page).to have_content('Company added successfully.')
     expect(page).to have_content('Launch Academy')
@@ -32,7 +32,7 @@ feature 'admin creates new company', %{
     sign_in_as(user)
 
     visit new_company_path
-    click_button 'Submit'
+    click_on 'Submit'
 
     expect(page).to have_content("Name can't be blank")
   end
@@ -43,11 +43,11 @@ feature 'admin creates new company', %{
 
     visit new_company_path
     fill_in 'Name', with: 'Launch Academy'
-    click_button 'Submit'
+    click_on 'Submit'
 
     visit new_company_path
     fill_in 'Name', with: 'Launch Academy'
-    click_button 'Submit'
+    click_on 'Submit'
 
     expect(page).to have_content('Name has already been taken')
   end

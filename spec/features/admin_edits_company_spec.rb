@@ -9,7 +9,7 @@ feature 'admin creates new company', %{
   So that I can add safety data sheets to it
 } do
   # Acceptance Criteria:
-  #   Admin clicks to create a new company
+  #   Admin clicks to edit company
   # 	Admin fills in a name (required, unique)
   # 	Admin submits form
   # 	Admin is redirected to company show page, if successful
@@ -22,7 +22,7 @@ feature 'admin creates new company', %{
 
     visit edit_company_path(company.id)
     fill_in 'Name', with: 'Launch Academy'
-    click_button 'Update'
+    click_on 'Update'
 
     expect(page).to have_content('Company edited successfully.')
     expect(page).to have_content('Launch Academy')
@@ -35,7 +35,7 @@ feature 'admin creates new company', %{
 
     visit edit_company_path(company.id)
     fill_in 'Name', with: ''
-    click_button 'Update'
+    click_on 'Update'
 
     expect(page).to have_content("Name can't be blank")
   end
@@ -48,11 +48,11 @@ feature 'admin creates new company', %{
 
     visit edit_company_path(company1.id)
     fill_in 'Name', with: 'Launch Academy'
-    click_button 'Update'
+    click_on 'Update'
 
     visit edit_company_path(company2.id)
     fill_in 'Name', with: 'Launch Academy'
-    click_button 'Update'
+    click_on 'Update'
 
     expect(page).to have_content('Name has already been taken')
   end
