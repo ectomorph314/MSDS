@@ -16,10 +16,11 @@ feature 'admin deletes data_sheet', %{
   # 	Admin should be presented with form and errors, if unsuccessful
 
   scenario 'admin deletes a data sheet' do
-    user = FactoryGirl.create(:user)
-    company = FactoryGirl.create(:company, user_id: user.id)
+    admin = FactoryGirl.create(:user, role: 'admin')
+    company = FactoryGirl.create(:company, user_id: admin.id)
     data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)
-    sign_in_as(user)
+    CompanyUser.create(company_id: company.id, user_id: admin.id)
+    sign_in_as(admin)
 
     visit company_data_sheets_path(company)
     click_on 'Delete Data Sheet'

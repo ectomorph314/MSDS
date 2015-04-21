@@ -16,8 +16,8 @@ feature 'admin creates new company', %{
   # 	Admin should be presented with form and errors, if unsuccessful
 
   scenario 'admin adds a valid company' do
-    user = FactoryGirl.create(:user)
-    sign_in_as(user)
+    admin = FactoryGirl.create(:user, role: 'admin')
+    sign_in_as(admin)
 
     visit new_company_path
     fill_in 'Name', with: 'Launch Academy'
@@ -28,8 +28,8 @@ feature 'admin creates new company', %{
   end
 
   scenario 'admin tries to add company with blank name' do
-    user = FactoryGirl.create(:user)
-    sign_in_as(user)
+    admin = FactoryGirl.create(:user, role: 'admin')
+    sign_in_as(admin)
 
     visit new_company_path
     click_on 'Submit'
@@ -38,18 +38,34 @@ feature 'admin creates new company', %{
   end
 
   scenario 'admin tries to add company with non-unique name' do
-    user = FactoryGirl.create(:user)
-    sign_in_as(user)
-
-    visit new_company_path
-    fill_in 'Name', with: 'Launch Academy'
-    click_on 'Submit'
+    admin1 = FactoryGirl.create(:user, role: 'admin')
+    admin2 = FactoryGirl.create(:user, role: 'admin')
+    FactoryGirl.create(:company, name: 'Launch Academy', user_id: admin1.id)
+    sign_in_as(admin2)
 
     visit new_company_path
     fill_in 'Name', with: 'Launch Academy'
     click_on 'Submit'
 
     expect(page).to have_content('Name has already been taken')
+  end
+
+  scenario 'admin tries to create a second company' do
+    admin = FactoryGirl.create(:user, role: 'admin')
+    company = FactoryGirl.create(:company, user_id: admin.id)
+    CompanyUser.create(company_id: company.id, user_id: admin.id)
+    sign_in_as(admin)
+
+    visit new_company_path
+    expect(page).to have_content("You don't have access to this page!")
+  end
+
+  scenario 'user tries to create a company' do
+    user = FactoryGirl.create(:user)
+    sign_in_as(user)
+
+    visit new_company_path
+    expect(page).to have_content("You don't have access to this page!")
   end
 
   scenario 'visitor tries to create a company' do

@@ -1,0 +1,31 @@
+<div class='row'>
+  <div class='small-12 columns'>
+    <h2>User List</h2>
+  </div>
+</div>
+
+<% @users.each do |user| %>
+  <p>
+    <div class='row'>
+      <div class='small-12 medium-6 large-3 columns'>
+        <%= user.email %>
+      </div>
+      <div class='small-12 medium-6 large-4 columns'>
+        <% if user.role == 'admin' %>
+          <%= link_to user.company.name, company_path(user.company) %>
+        <% elsif user.role == 'member' %>
+          <%= link_to user.company_user.company.name, company_path(user.company_user.company) %>
+        <% end %>
+      </div>
+      <div class='small-12 medium-4 large-1 columns'>
+        <%= user.role.capitalize %>
+      </div>
+      <div class='small-12 medium-4 large-2 columns'>
+        <%= link_to 'Edit User', edit_user_registration_path(user) %>
+      </div>
+      <div class='small-12 medium-4 large-2 columns'>
+        <%= link_to 'Delete User', user_path(user), data: { confirm: 'Are you sure?' }, method: :delete %>
+      </div>
+    </div>
+  </p>
+<% end %>

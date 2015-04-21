@@ -2,21 +2,36 @@ class CompaniesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @companies = Company.all
+    if current_user.role == 'owner'
+      @companies = Company.all
+    else
+      flash[:alert] = "You don't have access to this page!"
+      redirect_to root_path
+    end
   end
 
   def show
-    @company = Company.find(params[:id])
+    if CompanyUser.exists?(company_id: params[:id], user_id: current_user) || current_user.role == 'owner'
+      @company = Company.find(params[:id])
+    else
+      flash[:alert] = "You don't have access to this page!"
+      redirect_to root_path
+    end
   end
 
   def new
-    @company = Company.new
+    if !CompanyUser.exists?(user_id: current_user) && current_user.role == 'admin'
+      @company = Company.new
+    else
+      flash[:alert] = "You don't have access to this page!"
+      redirect_to root_path
+    end
   end
 
   def create
     @company = Company.new(company_params)
     @company.user = current_user
-    if @company.save
+    if @company.save && CompanyUser.create(company_id: @company.id, user_id: current_user.id)
       flash[:notice] = 'Company added successfully.'
       redirect_to company_path(@company)
     else
@@ -26,7 +41,12 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-    @company = Company.find(params[:id])
+    if (CompanyUser.exists?(company_id: params[:id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner'
+      @company = Company.find(params[:id])
+    else
+      flash[:alert] = "You don't have access to this page!"
+      redirect_to root_path
+    end
   end
 
   def update
@@ -41,10 +61,19 @@ class CompaniesController < ApplicationController
   end
 
   def destroy
-    company = Company.find(params[:id])
-    company.destroy
-    flash[:notice] = 'Company deleted.'
-    redirect_to root_path
+    if current_user.role == 'admin' || current_user.role == 'owner'
+      company = Company.find(params[:id])
+      company.destroy
+      flash[:notice] = 'Company deleted.'
+      if current_user.role == 'owner'
+        redirect_to companies_path
+      else
+        redirect_to root_path
+      end
+    else
+      flash[:alert] = "You don't have access to this page!"
+      redirect_to root_path
+    end
   end
 
   protected
