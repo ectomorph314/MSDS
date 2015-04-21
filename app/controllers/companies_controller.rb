@@ -70,9 +70,6 @@ class CompaniesController < ApplicationController
       else
         redirect_to root_path
       end
-    else
-      flash[:alert] = "You don't have access to this page!"
-      redirect_to root_path
     end
   end
 

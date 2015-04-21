@@ -64,9 +64,8 @@ feature 'admin creates new data sheet', %{
   end
 
   scenario 'user tries to create a data sheet' do
-    admin = FactoryGirl.create(:user, role: 'admin')
-    company = FactoryGirl.create(:company, user_id: admin.id)
     user = FactoryGirl.create(:user)
+    company = FactoryGirl.create(:company, user_id: user.id)
     CompanyUser.create(company_id: company.id, user_id: user.id)
     sign_in_as(user)
 

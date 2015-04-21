@@ -50,6 +50,17 @@ feature 'admin edits a data sheet', %{
     expect(page).to have_content("Name can't be blank")
   end
 
+  scenario 'user tries to edit a data sheet' do
+    user = FactoryGirl.create(:user)
+    company = FactoryGirl.create(:company, user_id: user.id)
+    data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)
+    CompanyUser.create(company_id: company.id, user_id: user.id)
+    sign_in_as(user)
+
+    visit edit_company_data_sheet_path(company, data_sheet)
+    expect(page).to have_content("You don't have access to this page!")
+  end
+
   scenario 'visitor tries to edit a data sheet' do
     user = FactoryGirl.create(:user)
     company = FactoryGirl.create(:company, user_id: user.id)

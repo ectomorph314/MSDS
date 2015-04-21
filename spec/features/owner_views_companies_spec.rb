@@ -24,17 +24,15 @@ feature 'owner views company list', %{
 
   scenario 'admin tries to view company list' do
     admin = FactoryGirl.create(:user, role: 'admin')
-    FactoryGirl.create(:company, user_id: admin.id)
     sign_in_as(admin)
 
     visit companies_path
     expect(page).to have_content("You don't have access to this page!")
   end
 
-  scenario 'member tries to view company list' do
-    member = FactoryGirl.create(:user, role: 'member')
-    FactoryGirl.create(:company, user_id: member.id)
-    sign_in_as(member)
+  scenario 'user tries to view company list' do
+    user = FactoryGirl.create(:user)
+    sign_in_as(user)
 
     visit companies_path
     expect(page).to have_content("You don't have access to this page!")
