@@ -3,7 +3,7 @@ class DataSheetsController < ApplicationController
 
   def index
     if CompanyUser.exists?(company_id: params[:company_id], user_id: current_user) || current_user.role == 'owner'
-      @data_sheets = DataSheet.where(company_id: params[:company_id])
+      @data_sheets = DataSheet.where(company_id: params[:company_id]).order(:number)
     else
       flash[:alert] = "You don't have access to this page!"
       redirect_to root_path

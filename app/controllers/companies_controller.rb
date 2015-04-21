@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
 
   def index
     if current_user.role == 'owner'
-      @companies = Company.all
+      @companies = Company.all.order(:name)
     else
       flash[:alert] = "You don't have access to this page!"
       redirect_to root_path

@@ -5,9 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.find_or_create_by(email: 'Thomas@MSDS.com') do |user|
+User.find_or_create_by(email: 'Thomas@owner.com') do |user|
   user.password = 'password123'
   user.role = 'owner'
+end
+
+User.find_or_create_by(email: 'Thomas@admin.com') do |user|
+  user.password = 'password123'
+  user.role = 'admin'
+end
+
+User.find_or_create_by(email: 'Thomas@user.com') do |user|
+  user.password = 'password123'
 end
 
 5.times do

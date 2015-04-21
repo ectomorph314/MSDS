@@ -22,7 +22,12 @@
   </div>
   <div class='row'>
     <div class='small-12 columns'>
-      <p><%= link_to 'Register your Company', new_company_path %></p>
+      <%= link_to 'Register your Company', new_company_path %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= link_to 'User List', users_path %>
     </div>
   </div>
 
@@ -34,7 +39,12 @@
   </div>
   <div class='row'>
     <div class='small-12 columns'>
-      <p><%= link_to 'View Data Sheets', company_data_sheets_path(current_user.company_user.company) %></p>
+      <%= link_to 'View Data Sheets', company_data_sheets_path(current_user.company_user.company) %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <%= link_to 'User List', users_path %>
     </div>
   </div>
 <% end %>

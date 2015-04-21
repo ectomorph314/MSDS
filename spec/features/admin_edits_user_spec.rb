@@ -3,14 +3,14 @@ require 'support/authentication_helper'
 
 include AuthenticationHelper
 
-feature 'admin edits company', %{
+feature 'admin edits user', %{
   As an authenticated admin
-  I want to edit my company
-  So that I can change incorrect information
+  I want to edit user profiles from my company
+  So that I can add them to my company profile
 } do
   # Acceptance Criteria:
-  #   Admin clicks to edit company
-  # 	Admin can change name
+  #   Admin clicks to edit user
+  # 	Admin can change
   # 	Admin submits form
   # 	Admin is redirected to company show page, if successful
   # 	Admin should be presented with form and errors, if unsuccessful
