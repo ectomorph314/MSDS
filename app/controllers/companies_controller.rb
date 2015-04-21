@@ -32,7 +32,7 @@ class CompaniesController < ApplicationController
     @company = Company.new(company_params)
     @company.user = current_user
     if @company.save && CompanyUser.create(company_id: @company.id, user_id: current_user.id)
-      flash[:notice] = 'Company added successfully.'
+      flash[:success] = 'Company added successfully.'
       redirect_to company_path(@company)
     else
       flash[:alert] = @company.errors.full_messages.join(', ')
@@ -52,7 +52,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
     if @company.update_attributes(company_params)
-      flash[:notice] = 'Company edited successfully.'
+      flash[:success] = 'Company edited successfully.'
       redirect_to company_path(@company)
     else
       flash[:alert] = @company.errors.full_messages.join(', ')
@@ -64,7 +64,7 @@ class CompaniesController < ApplicationController
     if current_user.role == 'admin' || current_user.role == 'owner'
       company = Company.find(params[:id])
       company.destroy
-      flash[:notice] = 'Company deleted.'
+      flash[:success] = 'Company deleted.'
       if current_user.role == 'owner'
         redirect_to companies_path
       else

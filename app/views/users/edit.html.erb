@@ -29,10 +29,11 @@
 
   <div class='row'>
     <div class='small-12 columns'>
-      <%= f.label(:company) %>
       <% if current_user.role == 'owner' %>
+        <%= f.label(:company) %>
         <%= f.collection_select(:company, Company.all, :id, :name, include_blank: 'Choose a Company') %>
-      <% else %>
+      <% elsif !current_user.company_user.nil? %>
+        <%= f.label(:company) %>
         <%= f.collection_select(:company, [CompanyUser.find_by(user_id: current_user).company], :id, :name, include_blank: 'Choose a Company') %>
       <% end %>
     </div>

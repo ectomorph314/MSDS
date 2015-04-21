@@ -3,6 +3,7 @@
   <head>
     <title>MSDS</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'vendor/modernizr' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -13,7 +14,7 @@
             <h1><%= link_to 'MSDS', root_path %></h1>
           </li>
         </ul>
-        
+
         <section class='top-bar-section'>
           <ul class='right'>
             <%- if current_user -%>
@@ -28,11 +29,18 @@
       </nav>
     </div>
 
-    <%- flash.each do |key, value| -%>
-      <div class='flash flash-<%= key %>'>
-        <%= value %>
+    <div class='row'>
+      <div class='small-12 columns'>
+        <%- flash.each do |key, value| -%>
+          <div data-alert class='alert-box <%= key %> round'>
+            <div class='flash flash-<%= key %>'>
+              <%= value %>
+            </div>
+            <a class='close'>&times;</a>
+          </div>
+        <%- end -%>
       </div>
-    <%- end -%>
+    </div>
 
     <%= yield %>
 

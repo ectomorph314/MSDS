@@ -24,7 +24,7 @@ class DataSheetsController < ApplicationController
     @data_sheet = DataSheet.new(data_sheet_params)
     @data_sheet.company_id = params[:company_id]
     if @data_sheet.save
-      flash[:notice] = 'Data sheet added successfully.'
+      flash[:success] = 'Data sheet added successfully.'
       redirect_to company_data_sheets_path(params[:company_id])
     else
       flash[:alert] = @data_sheet.errors.full_messages.join(', ')
@@ -46,7 +46,7 @@ class DataSheetsController < ApplicationController
     @data_sheet = DataSheet.find(params[:id])
     @data_sheet.company_id = params[:company_id]
     if @data_sheet.update_attributes(data_sheet_params)
-      flash[:notice] = 'Data sheet edited successfully.'
+      flash[:success] = 'Data sheet edited successfully.'
       redirect_to company_data_sheets_path(params[:company_id])
     else
       flash[:alert] = @data_sheet.errors.full_messages.join(', ')
@@ -58,7 +58,7 @@ class DataSheetsController < ApplicationController
     if (CompanyUser.exists?(company_id: params[:company_id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner'
       data_sheet = DataSheet.find(params[:id])
       data_sheet.destroy
-      flash[:notice] = 'Data sheet deleted.'
+      flash[:success] = 'Data sheet deleted.'
       redirect_to company_data_sheets_path
     end
   end

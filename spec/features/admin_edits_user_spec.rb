@@ -16,7 +16,7 @@ feature 'admin edits user', %{
   # 	Admin is redirected to company show page, if successful
   # 	Admin should be presented with form and errors, if unsuccessful
 
-  scenario 'admin edits a company successfully' do
+  scenario 'admin edits a user successfully' do
     admin = FactoryGirl.create(:user, role: 'admin')
     company = FactoryGirl.create(:company, user_id: admin.id)
     CompanyUser.create(company_id: company.id, user_id: admin.id)

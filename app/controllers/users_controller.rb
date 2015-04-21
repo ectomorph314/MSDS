@@ -6,13 +6,11 @@ class UsersController < ApplicationController
       @users = User.order(:role, :email)
     elsif current_user.role == 'admin'
       @users = []
-      if current_user.company_user.company.nil?
-        company_id = 0
-      else
+      if !current_user.company_user.nil?
         company_id = current_user.company_user.company.id
-      end
-      CompanyUser.where(company_id: company_id).find_each do |job|
-        @users << User.find(job.user_id)
+        CompanyUser.where(company_id: company_id).find_each do |job|
+          @users << User.find(job.user_id)
+        end
       end
       User.find_each do |user|
         if !CompanyUser.exists?(user_id: user.id) && user.role != 'owner'
@@ -20,7 +18,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      flash[:notice] = "You don't have access to this page!"
+      flash[:alert] = "You don't have access to this page!"
       redirect_to root_path
     end
   end
@@ -37,28 +35,24 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     record = CompanyUser.find_by(user_id: @user.id)
-    if @user.update_attributes(user_params)
-      if record.nil?
-        CompanyUser.create(company_id: params['user']['company'], user_id: @user.id)
-      else
-        record.update_attributes(company_id: params['user']['company'], user_id: @user.id)
-      end
-      flash[:notice] = 'User edited successfully.'
-      redirect_to users_path
+    @user.update_attributes(user_params)
+    if record.nil?
+      CompanyUser.create(company_id: params['user']['company'], user_id: @user.id)
     else
-      flash[:alert] = @user.errors.full_messages.join(', ')
-      redirect_to edit_company_path(@user.id)
+      record.update_attributes(company_id: params['user']['company'], user_id: @user.id)
     end
+    flash[:success] = 'User edited successfully.'
+    redirect_to users_path
   end
 
   def destroy
     if current_user.role == 'admin' || current_user.role == 'owner'
       user = User.find(params[:id])
       user.destroy
-      flash[:notice] = 'User deleted.'
+      flash[:success] = 'User deleted.'
       redirect_to users_path
     else
-      flash[:notice] = "You don't have access to this page!"
+      flash[:alert] = "You don't have access to this page!"
       redirect_to root_path
     end
   end

@@ -1,50 +1,45 @@
-<% if user_signed_in? && current_user.role == 'owner' %>
-  <div class='row'>
-    <div class='small-12 columns'>
-      Welcome, <%= current_user.email.capitalize[/^[^\@\_\.]*/] %>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='small-12 columns'>
-      <%= link_to 'User List', users_path %>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='small-12 columns'>
-      <%= link_to 'Company List', companies_path %>
-    </div>
-  </div>
-<% elsif user_signed_in? && !CompanyUser.exists?(user_id: current_user.id) && current_user.role == 'admin' %>
-  <div class='row'>
-    <div class='small-12 columns'>
-      Welcome, <%= current_user.email.capitalize[/^[^\@\_]*/] %>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='small-12 columns'>
-      <%= link_to 'Register your Company', new_company_path %>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='small-12 columns'>
-      <%= link_to 'User List', users_path %>
-    </div>
-  </div>
+<% if user_signed_in? %>
+  <fieldset>
+    <legend>Welcome, <%= current_user.email.capitalize[/^[^\@\_\.\d]*/] %></legend>
 
-<% elsif user_signed_in? && CompanyUser.exists?(user_id: current_user.id) %>
-  <div class='row'>
-    <div class='small-12 columns'>
-      Welcome, <%= current_user.email.capitalize[/^[^\@\_]*/] %>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='small-12 columns'>
-      <%= link_to 'View Data Sheets', company_data_sheets_path(current_user.company_user.company) %>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='small-12 columns'>
-      <%= link_to 'User List', users_path %>
-    </div>
-  </div>
+    <% if current_user.role == 'owner' %>
+      <div class='row'>
+        <div class='small-12 columns'>
+          <%= link_to 'User List', users_path %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='small-12 columns'>
+          <%= link_to 'Company List', companies_path %>
+        </div>
+      </div>
+
+    <% elsif !CompanyUser.exists?(user_id: current_user.id) && current_user.role == 'admin' %>
+      <div class='row'>
+        <div class='small-12 columns'>
+          <%= link_to 'Register your Company', new_company_path %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='small-12 columns'>
+          <%= link_to 'User List', users_path %>
+        </div>
+      </div>
+
+    <% elsif CompanyUser.exists?(user_id: current_user.id) %>
+      <div class='row'>
+        <div class='small-12 columns'>
+          <%= link_to 'View Data Sheets', company_data_sheets_path(current_user.company_user.company) %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='small-12 columns'>
+          <%= link_to 'User List', users_path %>
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
+<% else %>
+  <fieldset>
+  </fieldset>
 <% end %>
