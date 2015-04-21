@@ -16,6 +16,11 @@
 
  */
 
+.top-bar,
+.top-bar-section  ul.right li:not(.has-form) a:not(.button) {
+  background: #008CBA;
+}
+
 .flash {
   color: #FFFFFF;
 }

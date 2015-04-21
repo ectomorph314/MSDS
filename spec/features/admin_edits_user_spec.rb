@@ -10,7 +10,8 @@ feature 'admin edits user', %{
 } do
   # Acceptance Criteria:
   #   Admin clicks to edit user
-  # 	Admin can change
+  # 	Admin can promote user to admin
+  #   Admin can add user to a company
   # 	Admin submits form
   # 	Admin is redirected to company show page, if successful
   # 	Admin should be presented with form and errors, if unsuccessful
@@ -20,57 +21,32 @@ feature 'admin edits user', %{
     company = FactoryGirl.create(:company, user_id: admin.id)
     CompanyUser.create(company_id: company.id, user_id: admin.id)
     sign_in_as(admin)
-
-    visit edit_company_path(company)
-    fill_in 'Name', with: 'Launch Academy'
-    click_on 'Update'
-
-    expect(page).to have_content('Company edited successfully.')
-    expect(page).to have_content('Launch Academy')
-  end
-
-  scenario 'admin tries to edit a company to a blank name' do
-    admin = FactoryGirl.create(:user, role: 'admin')
-    company = FactoryGirl.create(:company, user_id: admin.id)
-    CompanyUser.create(company_id: company.id, user_id: admin.id)
-    sign_in_as(admin)
-
-    visit edit_company_path(company)
-    fill_in 'Name', with: ''
-    click_on 'Update'
-
-    expect(page).to have_content("Name can't be blank")
-  end
-
-  scenario 'admin tries to edit a company to a non-unique name' do
-    admin = FactoryGirl.create(:user, role: 'admin')
-    company = FactoryGirl.create(:company, user_id: admin.id)
-    FactoryGirl.create(:company, name: 'Launch Academy', user_id: admin.id)
-    CompanyUser.create(company_id: company.id, user_id: admin.id)
-    sign_in_as(admin)
-
-    visit edit_company_path(company)
-    fill_in 'Name', with: 'Launch Academy'
-    click_on 'Update'
-
-    expect(page).to have_content('Name has already been taken')
-  end
-
-  scenario 'user tries to edit a company' do
     user = FactoryGirl.create(:user)
-    company = FactoryGirl.create(:company, user_id: user.id)
-    CompanyUser.create(company_id: company.id, user_id: user.id)
-    sign_in_as(user)
 
-    visit edit_company_path(company)
+    visit edit_user_path(user)
+    expect(page).to_not have_content('Owner')
+
+    choose 'Admin'
+    select company.name
+    click_on 'Update'
+
+    expect(page).to have_content('Admin')
+    expect(page).to_not have_content('Member')
+  end
+
+  scenario 'user tries to edit a user' do
+    user1 = FactoryGirl.create(:user)
+    sign_in_as(user1)
+    user2 = FactoryGirl.create(:user)
+
+    visit edit_user_path(user2)
     expect(page).to have_content("You don't have access to this page!")
   end
 
-  scenario 'visitor tries to edit a company' do
+  scenario 'visitor tries to edit a user' do
     user = FactoryGirl.create(:user)
-    company = FactoryGirl.create(:company, user_id: user.id)
 
-    visit edit_company_path(company)
+    visit edit_user_path(user)
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
 end
