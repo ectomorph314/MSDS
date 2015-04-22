@@ -34,7 +34,7 @@ feature 'admin edits a data sheet', %{
     expect(page).to have_content('Borosilicate')
   end
 
-  scenario 'admin tries to add blank form' do
+  scenario 'admin tries to edit form blank' do
     admin = FactoryGirl.create(:user, role: 'admin')
     company = FactoryGirl.create(:company, user_id: admin.id)
     data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)

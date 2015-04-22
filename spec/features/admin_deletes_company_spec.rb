@@ -38,7 +38,7 @@ feature 'admin deletes company', %{
     expect(page).to_not have_content(company.name)
   end
 
-  scenario 'member tries to deletes a company' do
+  scenario 'user tries to deletes a company' do
     user = FactoryGirl.create(:user)
     company = FactoryGirl.create(:company, user_id: user.id)
     CompanyUser.create(company_id: company.id, user_id: user.id)

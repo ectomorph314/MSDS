@@ -16,7 +16,7 @@ feature 'admin edits user', %{
   # 	Admin is redirected to company show page, if successful
   # 	Admin should be presented with form and errors, if unsuccessful
 
-  scenario 'admin edits a user successfully' do
+  scenario 'admin with a company edits a user successfully' do
     admin = FactoryGirl.create(:user, role: 'admin')
     company = FactoryGirl.create(:company, user_id: admin.id)
     CompanyUser.create(company_id: company.id, user_id: admin.id)
@@ -28,6 +28,21 @@ feature 'admin edits user', %{
 
     choose 'Admin'
     select company.name
+    click_on 'Update'
+
+    expect(page).to have_content('Admin')
+    expect(page).to_not have_content('Member')
+  end
+
+  scenario 'admin without a company edits a user successfully' do
+    admin = FactoryGirl.create(:user, role: 'admin')
+    sign_in_as(admin)
+    user = FactoryGirl.create(:user)
+
+    visit edit_user_path(user)
+    expect(page).to_not have_content('Owner')
+
+    choose 'Admin'
     click_on 'Update'
 
     expect(page).to have_content('Admin')

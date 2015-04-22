@@ -46,15 +46,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if current_user.role == 'admin' || current_user.role == 'owner'
-      user = User.find(params[:id])
-      user.destroy
-      flash[:success] = 'User deleted.'
-      redirect_to users_path
-    else
-      flash[:alert] = "You don't have access to this page!"
-      redirect_to root_path
-    end
+    user = User.find(params[:id])
+    user.destroy
+    flash[:success] = 'User deleted.'
+    redirect_to users_path
   end
 
   protected
