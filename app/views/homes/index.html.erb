@@ -26,15 +26,22 @@
         </div>
       </div>
 
+      <% elsif CompanyUser.exists?(user_id: current_user.id)&& current_user.role == 'admin' %>
+        <div class='row'>
+          <div class='small-12 columns'>
+            <%= link_to 'View Data Sheets', company_data_sheets_path(current_user.company_user.company) %>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='small-12 columns'>
+            <%= link_to 'User List', users_path %>
+          </div>
+        </div>
+
     <% elsif CompanyUser.exists?(user_id: current_user.id) %>
       <div class='row'>
         <div class='small-12 columns'>
           <%= link_to 'View Data Sheets', company_data_sheets_path(current_user.company_user.company) %>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='small-12 columns'>
-          <%= link_to 'User List', users_path %>
         </div>
       </div>
     <% end %>
