@@ -3,34 +3,44 @@
   <head>
     <title>MSDS</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'vendor/modernizr' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-
-    <nav class='top-bar'>
-      <ul class='title-area'>
-        <li class='name'>
-          <h1><%= link_to 'MSDS', root_path %></h1>
-        </li>
-      </ul>
-
-      <section class='top-bar-section'>
-        <ul class='right'>
-          <%- if current_user -%>
-            <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-          <%- else -%>
-            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-            <li><%= link_to 'Sign In', new_user_session_path %></li>
-          <%- end -%>
+    <div class='sticky'>
+      <nav class='top-bar'>
+        <ul class='title-area'>
+          <li class='name'>
+            <h1><%= link_to 'MSDS', root_path %></h1>
+          </li>
         </ul>
-      </section>
-    </nav>
 
-    <%- flash.each do |key, value| -%>
-      <div class='flash flash-<%= key %>'>
-        <%= value %>
+        <section class='top-bar-section'>
+          <ul class='right'>
+            <%- if current_user -%>
+              <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
+              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+            <%- else -%>
+              <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+              <li><%= link_to 'Sign In', new_user_session_path %></li>
+            <%- end -%>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+    <div class='row'>
+      <div class='small-12 columns'>
+        <%- flash.each do |key, value| -%>
+          <div data-alert class='alert-box <%= key %> round'>
+            <div class='flash flash-<%= key %>'>
+              <%= value %>
+            </div>
+            <a class='close'>&times;</a>
+          </div>
+        <%- end -%>
       </div>
-    <%- end -%>
+    </div>
 
     <%= yield %>
 

@@ -7,23 +7,23 @@
 <%= form_for [@company, @data_sheet], html: {multipart: true} do |f| %>
   <div class='row'>
     <div class='small-12 columns'>
-      <%= f.label :name %>
+      <%= f.label :number %>
     </div>
   </div>
   <div class='row'>
     <div class='small-12 columns'>
-      <%= f.text_field :name, autofocus: true %>
+      <%= f.text_field :number, autofocus: true %>
     </div>
   </div>
 
   <div class='row'>
     <div class='small-12 columns'>
-      <%= f.label :description %>
+      <%= f.label :name %>
     </div>
   </div>
   <div class='row'>
     <div class='small-12 columns'>
-      <%= f.text_area :description %>
+      <%= f.text_field :name %>
     </div>
   </div>
 
@@ -40,7 +40,7 @@
 
   <div class='row'>
     <div class='small-12 columns'>
-      <%= f.submit 'Submit', class: 'button radius' %>
+      <%= f.submit 'Submit', class: 'small button radius' %>
     </div>
   </div>
 <% end %>

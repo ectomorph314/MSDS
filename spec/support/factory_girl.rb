@@ -12,8 +12,8 @@ FactoryGirl.define do
   end
 
   factory :data_sheet do
+    number '357325853483'
     name 'Poison'
-    description 'Bad for you'
     sds { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'fixtures', 'OSHA3514.pdf')) }
   end
 end

@@ -18,40 +18,55 @@ feature 'admin edits a data sheet', %{
   # 	Admin should be presented with form and errors, if unsuccessful
 
   scenario 'admin edits a data sheet successfully' do
-    user = FactoryGirl.create(:user)
-    company = FactoryGirl.create(:company, user_id: user.id)
+    admin = FactoryGirl.create(:user, role: 'admin')
+    company = FactoryGirl.create(:company, user_id: admin.id)
     data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)
-    sign_in_as(user)
+    CompanyUser.create(company_id: company.id, user_id: admin.id)
+    sign_in_as(admin)
 
-    visit edit_company_data_sheet_path(company.id, data_sheet.id)
+    visit edit_company_data_sheet_path(company, data_sheet)
+    fill_in 'Number', with: '42537426845'
     fill_in 'Name', with: 'Borosilicate'
-    fill_in 'Description', with: 'Standard Glass'
     click_on 'Update'
 
     expect(page).to have_content('Data sheet edited successfully.')
+    expect(page).to have_content('42537426845')
     expect(page).to have_content('Borosilicate')
-    expect(page).to have_content('Standard Glass')
   end
 
-  scenario 'admin tries to add blank form' do
-    user = FactoryGirl.create(:user)
-    company = FactoryGirl.create(:company, user_id: user.id)
+  scenario 'admin tries to edit form blank' do
+    admin = FactoryGirl.create(:user, role: 'admin')
+    company = FactoryGirl.create(:company, user_id: admin.id)
     data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)
-    sign_in_as(user)
+    CompanyUser.create(company_id: company.id, user_id: admin.id)
+    sign_in_as(admin)
 
-    visit edit_company_data_sheet_path(company.id, data_sheet.id)
+    visit edit_company_data_sheet_path(company, data_sheet)
+    fill_in 'Number', with: ''
     fill_in 'Name', with: ''
     click_on 'Update'
 
+    expect(page).to have_content("Number can't be blank")
     expect(page).to have_content("Name can't be blank")
   end
 
-  scenario 'visitor tries to edit a datasheet' do
+  scenario 'user tries to edit a data sheet' do
+    user = FactoryGirl.create(:user)
+    company = FactoryGirl.create(:company, user_id: user.id)
+    data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)
+    CompanyUser.create(company_id: company.id, user_id: user.id)
+    sign_in_as(user)
+
+    visit edit_company_data_sheet_path(company, data_sheet)
+    expect(page).to have_content("You don't have access to this page!")
+  end
+
+  scenario 'visitor tries to edit a data sheet' do
     user = FactoryGirl.create(:user)
     company = FactoryGirl.create(:company, user_id: user.id)
     data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)
 
-    visit edit_company_data_sheet_path(company.id, data_sheet.id)
+    visit edit_company_data_sheet_path(company, data_sheet)
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
 end
