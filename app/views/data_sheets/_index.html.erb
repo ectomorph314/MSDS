@@ -1,6 +1,6 @@
 <div class='row'>
   <div class='small-12 columns'>
-    <h2>Safety Data Sheets</h2>
+    <h3>Safety Data Sheets</h3>
   </div>
 </div>
 
@@ -13,12 +13,12 @@
       <div class='small-12 medium-6 large-3 columns'>
         <a href=<%= "#{data_sheet.sds}" %>><%= data_sheet.name %></a>
       </div>
-      <% if (CompanyUser.exists?(company_id: params[:company_id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner' %>
+      <% if (CompanyUser.exists?(company_id: params[:id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner' %>
         <div class='small-12 medium-6 large-3 columns'>
-          <%= link_to 'Edit Data Sheet', edit_company_data_sheet_path(params[:company_id], data_sheet) %>
+          <%= link_to 'Edit Data Sheet', edit_company_data_sheet_path(params[:id], data_sheet) %>
         </div>
         <div class='small-12 medium-6 large-3 columns'>
-          <%= link_to 'Delete Data Sheet', company_data_sheet_path(params[:company_id], data_sheet), data: { confirm: 'Are you sure?' }, method: :delete %>
+          <%= link_to 'Delete Data Sheet', company_data_sheet_path(params[:id], data_sheet), data: { confirm: 'Are you sure?' }, method: :delete %>
         </div>
       <% end %>
     </div>
@@ -28,7 +28,7 @@
 <div class='row'>
   <div class='small-12 columns'>
     <% if current_user.role == 'admin' %>
-      <p><%= link_to 'Add a New Data Sheet', new_company_data_sheet_path(params[:company_id]) %></p>
+      <p><%= link_to 'Add a New Data Sheet', new_company_data_sheet_path(params[:id]) %></p>
     <% end %>
   </div>
 </div>

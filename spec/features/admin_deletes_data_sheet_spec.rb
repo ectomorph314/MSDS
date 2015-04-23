@@ -22,7 +22,7 @@ feature 'admin deletes data_sheet', %{
     CompanyUser.create(company_id: company.id, user_id: admin.id)
     sign_in_as(admin)
 
-    visit company_data_sheets_path(company)
+    visit company_path(company)
     click_on 'Delete Data Sheet'
 
     expect(page).to have_content('Data sheet deleted.')
@@ -36,7 +36,7 @@ feature 'admin deletes data_sheet', %{
     CompanyUser.create(company_id: company.id, user_id: user.id)
     sign_in_as(user)
 
-    visit company_data_sheets_path(company)
+    visit company_path(company)
     expect(page).to_not have_content('Delete Data Sheet')
   end
 end

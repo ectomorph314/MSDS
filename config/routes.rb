@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update, :destroy]
 
   resources :companies do
-    resources :data_sheets, except: [:show]
+    resources :data_sheets, except: [:index, :show]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

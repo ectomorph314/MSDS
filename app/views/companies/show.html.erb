@@ -15,8 +15,4 @@
   </div>
 <% end %>
 
-<div class='row'>
-  <div class='small-12 columns'>
-    <p><%= link_to 'View Company Data Sheets', company_data_sheets_path(@company) %></p>
-  </div>
-</div>
+<%= render 'data_sheets/index' %>

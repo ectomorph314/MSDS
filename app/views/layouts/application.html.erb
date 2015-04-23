@@ -35,6 +35,7 @@
           <div data-alert class='alert-box <%= key %> round'>
             <div class='flash flash-<%= key %>'>
               <%= value %>
+              <% flash.clear %>
             </div>
             <a class='close'>&times;</a>
           </div>

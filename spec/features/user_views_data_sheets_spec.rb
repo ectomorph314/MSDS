@@ -18,22 +18,18 @@ feature 'user views data sheets', %{
     CompanyUser.create(company_id: company.id, user_id: user.id)
     sign_in_as(user)
 
-    visit company_data_sheets_path(company)
+    visit company_path(company)
     expect(page).to have_content(data_sheet.number)
     expect(page).to have_content(data_sheet.name)
   end
 
-  scenario "user tries to view other company details" do
+  scenario "user tries to view other company's data sheets" do
     admin = FactoryGirl.create(:user, role: 'admin')
     user = FactoryGirl.create(:user)
     company = FactoryGirl.create(:company, user_id: admin.id)
-    data_sheet = FactoryGirl.create(:data_sheet, company_id: company.id)
-    CompanyUser.create(company_id: company.id, user_id: admin.id)
     sign_in_as(user)
 
-    visit company_data_sheets_path(company)
+    visit company_path(company)
     expect(page).to have_content("You don't have access to this page!")
-    expect(page).to_not have_content(data_sheet.number)
-    expect(page).to_not have_content(data_sheet.name)
   end
 end
