@@ -8,22 +8,28 @@
   <div class='row'>
     <% if current_user.role == 'owner' %>
       <div class='small-12 medium-4 columns'>
-        <%= f.radio_button(:role, 'owner') %>
-        <%= f.label(:role_owner, 'Owner') %>
+        <%= f.label :role_owner, 'Owner' %>
+        <div class='tiny switch radius'>
+          <%= f.radio_button :role, 'owner' %>
+          <%= f.label :role_owner %>
+        </div>
       </div>
+    <% end %>
+    <% if current_user.role == 'admin' || current_user.role == 'owner' %>
       <div class='small-12 medium-4 columns'>
-        <%= f.radio_button(:role, 'admin') %>
-        <%= f.label(:role_admin, 'Admin') %>
-      </div>
-    <% elsif current_user.role == 'admin' %>
-      <div class='small-12 medium-4 columns'>
-        <%= f.radio_button(:role, 'admin') %>
-        <%= f.label(:role_admin, 'Admin') %>
+        <%= f.label :role_admin, 'Admin' %>
+        <div class='tiny switch radius'>
+          <%= f.radio_button :role, 'admin' %>
+          <%= f.label :role_admin %>
+        </div>
       </div>
     <% end %>
     <div class='small-12 medium-4 columns'>
-      <%= f.radio_button(:role, 'member') %>
-      <%= f.label(:role_member, 'Member') %>
+      <%= f.label :role_member, 'Member' %>
+      <div class='tiny switch radius'>
+        <%= f.radio_button :role, 'member' %>
+        <%= f.label :role_member %>
+      </div>
     </div>
   </div>
 

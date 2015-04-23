@@ -6,17 +6,13 @@
 
 <% if current_user.role == 'admin' || current_user.role == 'owner' %>
   <div class='row'>
-    <div class='small-12 medium-6 columns'>
-      <p><%= link_to 'Edit Company', edit_company_path %></p>
-    </div>
-    <div class='small-12 medium-6 columns'>
-      <p><%= link_to 'Delete Company', company_path, data: { confirm: 'Are you sure?' }, method: :delete %><p>
+    <div class='small-12 columns'>
+      <ul class="button-group round">
+        <li><%= link_to 'Edit Company', edit_company_path, class: 'small button' %></li>
+        <li><%= link_to 'Delete Company', company_path, data: { confirm: 'Are you sure?' }, method: :delete, class: 'small button' %></li>
+      </ul>
     </div>
   </div>
 <% end %>
 
-<div class='row'>
-  <div class='small-12 columns'>
-    <p><%= link_to 'View Company Data Sheets', company_data_sheets_path(@company) %></p>
-  </div>
-</div>
+<%= render 'data_sheets/index' %>
