@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MSDS</title>
+    <title>SDSD</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'vendor/modernizr' %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
-    <div class='sticky'>
-      <nav class='top-bar'>
-        <ul class='title-area'>
-          <li class='name'>
-            <h1><%= link_to 'MSDS', root_path %></h1>
-          </li>
-        </ul>
+  <header>
+    <nav class='top-bar'>
+      <ul class='title-area'>
+        <li class='name'>
+          <h1><%= link_to 'SafetyDataSheetDepot', root_path %></h1>
+        </li>
+      </ul>
 
-        <section class='top-bar-section'>
-          <ul class='right'>
-            <%- if current_user -%>
-              <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
-              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-            <%- else -%>
-              <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-              <li><%= link_to 'Sign In', new_user_session_path %></li>
-            <%- end -%>
+      <section class='top-bar-section'>
+        <% if current_user && CompanyUser.exists?(user_id: current_user) %>
+          <% company = CompanyUser.find_by(user_id: current_user).company %>
+          <ul class='left'>
+            <%= form_tag(company_path(company), method: 'get') do %>
+              <li><%= text_field_tag(:search, params[:search]) %></li>
+              <li><%= submit_tag('Search', class: 'tiny button info') %></li>
+            <% end %>
           </ul>
-        </section>
-      </nav>
-    </div>
+      <% end %>
 
+        <ul class='right'>
+          <%- if current_user -%>
+            <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
+            <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+          <%- else -%>
+            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+            <li><%= link_to 'Sign In', new_user_session_path %></li>
+          <%- end -%>
+        </ul>
+      </section>
+    </nav>
+  </header>
+  <body>
     <div class='row'>
       <div class='small-12 columns'>
         <%- flash.each do |key, value| -%>
@@ -48,4 +57,13 @@
     <%= javascript_include_tag 'application' %>
     <%= yield :extra_footer %>
   </body>
+  <footer>
+    <div class='row'>
+      <div class='small-3 small-centered columns'>
+        <a href='https://github.com/ectomorph314/msds'>
+          <em>Link to GitHub Repo</em>
+        </a>
+      </div>
+    </div>
+  </footer>
 </html>
