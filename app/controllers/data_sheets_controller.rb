@@ -2,7 +2,7 @@ class DataSheetsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    if CompanyUser.exists?(company_id: params[:company_id], user_id: current_user) && current_user.role == 'admin'
+    if current_user.admin_access?(params[:company_id])
       @company = Company.find(params[:company_id])
       @data_sheet = DataSheet.new
     else
@@ -24,7 +24,7 @@ class DataSheetsController < ApplicationController
   end
 
   def edit
-    if (CompanyUser.exists?(company_id: params[:company_id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner'
+    if current_user.admin_access?(params[:company_id]) || current_user.role == 'owner'
       @company = Company.find(params[:company_id])
       @data_sheet = DataSheet.find(params[:id])
     else
@@ -46,7 +46,7 @@ class DataSheetsController < ApplicationController
   end
 
   def destroy
-    if (CompanyUser.exists?(company_id: params[:company_id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner'
+    if current_user.admin_access?(params[:company_id]) || current_user.role == 'owner'
       data_sheet = DataSheet.find(params[:id])
       data_sheet.destroy
       flash[:success] = 'Data sheet deleted.'
