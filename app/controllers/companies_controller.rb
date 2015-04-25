@@ -42,7 +42,7 @@ class CompaniesController < ApplicationController
   end
 
   def edit
-    if (CompanyUser.exists?(company_id: params[:id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner'
+    if current_user.admin_access?(params[:id]) || current_user.role == 'owner'
       @company = Company.find(params[:id])
     else
       flash[:alert] = "You don't have access to this page!"
@@ -62,15 +62,13 @@ class CompaniesController < ApplicationController
   end
 
   def destroy
-    if current_user.role == 'admin' || current_user.role == 'owner'
-      company = Company.find(params[:id])
-      company.destroy
-      flash[:success] = 'Company deleted.'
-      if current_user.role == 'owner'
-        redirect_to companies_path
-      else
-        redirect_to root_path
-      end
+    company = Company.find(params[:id])
+    company.destroy
+    flash[:success] = 'Company deleted.'
+    if current_user.role == 'owner'
+      redirect_to companies_path
+    else
+      redirect_to root_path
     end
   end
 

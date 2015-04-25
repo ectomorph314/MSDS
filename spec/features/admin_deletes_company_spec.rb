@@ -31,7 +31,7 @@ feature 'admin deletes company', %{
     company = FactoryGirl.create(:company, user_id: owner.id)
     sign_in_as(owner)
 
-    visit company_path(company)
+    visit companies_path
     click_on 'Delete Company'
 
     expect(page).to have_content('Company deleted.')

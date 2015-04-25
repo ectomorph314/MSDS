@@ -5,21 +5,21 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.find_or_create_by(email: 'thomas@owner.com') do |user|
-  user.password = 'password123'
-  user.role = 'owner'
-end
+# if Rails.env.development?
+  User.find_or_create_by(email: 'thomas@owner.com') do |user|
+    user.password = 'password123'
+    user.role = 'owner'
+  end
 
-User.find_or_create_by(email: 'thomas@admin.com') do |user|
-  user.password = 'password123'
-  user.role = 'admin'
-end
+  User.find_or_create_by(email: 'thomas@admin.com') do |user|
+    user.password = 'password123'
+    user.role = 'admin'
+  end
 
-User.find_or_create_by(email: 'thomas@user.com') do |user|
-  user.password = 'password123'
-end
+  User.find_or_create_by(email: 'thomas@user.com') do |user|
+    user.password = 'password123'
+  end
 
-if Rails.env.development?
   5.times do
     admin = User.new(
       email: Faker::Internet.email,
@@ -53,4 +53,4 @@ if Rails.env.development?
     )
     data_sheet.save
   end
-end
+# end

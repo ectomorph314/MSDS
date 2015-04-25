@@ -13,7 +13,7 @@ class UsersController < ApplicationController
         end
       end
       User.find_each do |user|
-        if !CompanyUser.exists?(user_id: user.id) && user.role != 'owner'
+        if !CompanyUser.exists?(user_id: user.id)
           @users << User.find(user.id)
         end
       end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if (current_user.role == 'admin' && (CompanyUser.exists?(company_id: current_user.company.id, user_id: params[:id]) || !CompanyUser.exists?(user_id: params[:id]))) || current_user.role == 'owner'
+    if (current_user.role == 'admin' && (!CompanyUser.exists?(user_id: params[:id]) || CompanyUser.exists?(company_id: current_user.company.id, user_id: params[:id]))) || current_user.role == 'owner'
       @user = User.find(params[:id])
     else
       flash[:alert] = "You don't have access to this page!"

@@ -1,6 +1,6 @@
 <fieldset>
   <% if current_user %>
-    <legend>Welcome, <%= current_user.role.capitalize %>: <%= current_user.email.capitalize[/^[^\@\_\.\d]*/] %></legend>
+    <legend>Welcome, <%= current_user.role %>: <%= current_user.email.capitalize[/^[^\@\_\.\d]*/] %></legend>
 
     <% if current_user.role == 'owner' || current_user.role == 'admin' %>
       <div class='row'>
