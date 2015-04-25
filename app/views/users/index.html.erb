@@ -18,7 +18,7 @@
         <% elsif user.role == 'member' && CompanyUser.exists?(user_id: user) %>
           <%= link_to user.company_user.company.name, company_path(user.company_user.company) %>
         <% else %>
-          <em>This user doesn't have a company</em>
+          <em>This user doesn't belong to a company yet</em>
         <% end %>
       </div>
       <div class='small-12 medium-4 large-1 columns'>

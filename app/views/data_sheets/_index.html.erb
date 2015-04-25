@@ -13,7 +13,7 @@
       <div class='small-12 medium-6 large-3 columns'>
         <a href=<%= "#{data_sheet.sds}" %>><%= data_sheet.name %></a>
       </div>
-      <% if (CompanyUser.exists?(company_id: params[:id], user_id: current_user) && current_user.role == 'admin') || current_user.role == 'owner' %>
+      <% if current_user.admin_access?(params[:id]) || current_user.role == 'owner' %>
         <div class='small-12 medium-6 large-3 columns'>
           <%= link_to 'Edit Data Sheet', edit_company_data_sheet_path(params[:id], data_sheet) %>
         </div>

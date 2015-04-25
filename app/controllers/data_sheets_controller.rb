@@ -46,12 +46,10 @@ class DataSheetsController < ApplicationController
   end
 
   def destroy
-    if current_user.admin_access?(params[:company_id]) || current_user.role == 'owner'
-      data_sheet = DataSheet.find(params[:id])
-      data_sheet.destroy
-      flash[:success] = 'Data sheet deleted.'
-      redirect_to company_path(params[:company_id])
-    end
+    data_sheet = DataSheet.find(params[:id])
+    data_sheet.destroy
+    flash[:success] = 'Data sheet deleted.'
+    redirect_to company_path(params[:company_id])
   end
 
   protected
