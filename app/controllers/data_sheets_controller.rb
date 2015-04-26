@@ -53,6 +53,7 @@ class DataSheetsController < ApplicationController
   end
 
   protected
+  
   def data_sheet_params
     params.require(:data_sheet).permit(:number, :name, :sds)
   end

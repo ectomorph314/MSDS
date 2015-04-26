@@ -10,7 +10,7 @@ feature 'admin views users', %{
 } do
   # Acceptance Criteria:
   #   Admin visits the user index page
-  #   Admin can see 
+  #   Admin can see user email and company
 
   scenario 'owner views list of users' do
     owner = FactoryGirl.create(:user, role: 'owner')
