@@ -13,7 +13,7 @@ class DataSheetUploader < CarrierWave::Uploader::Base
     %w(pdf)
   end
 
-  def cache_dir
-    "#{Rails.root}/tmp/uploads"
-  end
+  # def cache_dir
+  #   "#{Rails.root}/tmp/uploads"
+  # end
 end
