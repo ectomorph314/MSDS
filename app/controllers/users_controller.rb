@@ -13,7 +13,7 @@ class UsersController < ApplicationController
         end
       end
       User.find_each do |user|
-        if !CompanyUser.exists?(user_id: user.id) || user.role == 'owner'
+        if !CompanyUser.exists?(user_id: user.id) && user.role != 'owner'
           @users << User.find(user.id)
         end
       end

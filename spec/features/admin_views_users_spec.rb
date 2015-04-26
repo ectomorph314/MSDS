@@ -10,7 +10,7 @@ feature 'admin views users', %{
 } do
   # Acceptance Criteria:
   #   Admin visits the user index page
-  #   Admin can see 
+  #   Admin can see
 
   scenario 'owner views list of users' do
     owner = FactoryGirl.create(:user, role: 'owner')
@@ -46,9 +46,11 @@ feature 'admin views users', %{
     company2 = FactoryGirl.create(:company, user_id: user2.id)
     CompanyUser.create(company_id: company2.id, user_id: user2.id)
 
+    owner = FactoryGirl.create(:user, role: 'owner')
     user3 = FactoryGirl.create(:user)
 
     visit users_path
+    expect(page).to_not have_content(owner.email)
     expect(page).to have_content(admin.email)
     expect(page).to have_content(user1.email)
     expect(page).to_not have_content(user2.email)
