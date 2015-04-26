@@ -34,13 +34,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    record = CompanyUser.find_by(user_id: @user.id)
     @user.update_attributes(user_params)
-    if record.nil?
-      CompanyUser.create(company_id: params['user']['company'], user_id: @user.id)
-    else
-      record.update_attributes(company_id: params['user']['company'], user_id: @user.id)
-    end
+    record = CompanyUser.find_or_initialize_by(user_id: @user.id)
+    record.update_attributes(company_id: params['user']['company'], user_id: @user.id)
     flash[:success] = 'User edited successfully.'
     redirect_to users_path
   end
@@ -53,6 +49,7 @@ class UsersController < ApplicationController
   end
 
   protected
+  
   def user_params
     params.require(:user).permit(:role)
   end
