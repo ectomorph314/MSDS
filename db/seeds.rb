@@ -48,7 +48,7 @@
     data_sheet = DataSheet.new(
       number: Faker::Number.number(10),
       name: Faker::Commerce.product_name,
-      sds: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'fixtures', 'OSHA3514.pdf')),
+      sds: File.open(File.join(Rails.root, 'spec', 'fixtures', 'OSHA3514.pdf')),
       company_id: rand(1..Company.count)
     )
     data_sheet.save
