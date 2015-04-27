@@ -8,10 +8,6 @@ SDSD is a mobile friendly web app that allows companies/schools to upload pdf fi
 
 App uses Ruby on Rails and Foundation. PDF uploads using CarrierWave and Amazon S3.
 
-Screenshot of app in use
-
-![Example Screenshot](SDS-example.png)
-
 *Data generated using Faker gem*
 
 To use the app locally on your machine:
