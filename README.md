@@ -1,28 +1,29 @@
 [![Build Status](https://travis-ci.org/ectomorph314/msds.svg)](https://travis-ci.org/ectomorph314/msds) [![Code Climate](https://codeclimate.com/github/ectomorph314/MSDS/badges/gpa.svg)](https://codeclimate.com/github/ectomorph314/MSDS) [![Coverage Status](https://coveralls.io/repos/ectomorph314/msds/badge.svg)](https://coveralls.io/r/ectomorph314/msds)
 
-== README
+#Readme
 
-https://safety-data-sheet-depot.herokuapp.com/
+[App on Heroku](https://safety-data-sheet-depot.herokuapp.com/)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+SDSD is a mobile friendly web app that allows companies/schools to upload pdf files of their safety data sheets so that their employees/students can easily access important health and safety information.
 
-Things you may want to cover:
+App uses Ruby on Rails and Foundation. PDF uploads using CarrierWave and Amazon S3.
 
-* Ruby version
-2.2.0
-* System dependencies
-carrierwave, fog, and S3
-* Configuration
+Screenshot of app in use
 
-* Database creation
-rake db:create
-* Database initialization
-rake db:migrate && rake db:rollback && rake db:migrate
-* How to run the test suite
-rspec
-* Services (job queues, cache servers, search engines, etc.)
+![Example Screenshot](SDS-example.png)
 
-* Deployment instructions
+*Data generated using Faker gem*
 
-* ...
+To use the app locally on your machine:
+```
+$ git clone git@github.com:ectomorph314/msds.git
+$ rake db:create
+$ rake db:migrate
+```
+
+Test suite uses Rspec, Capybara, as well as FactoryGirl.
+
+To run test suite:
+```
+$ rspec
+```

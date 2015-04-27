@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-# if Rails.env.development?
+if Rails.env.development?
   User.find_or_create_by(email: 'thomas@owner.com') do |user|
     user.password = 'password123'
     user.role = 'owner'
@@ -53,4 +53,4 @@
     )
     data_sheet.save
   end
-# end
+end
