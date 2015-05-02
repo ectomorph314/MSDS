@@ -1,5 +1,6 @@
 class DataSheet < ActiveRecord::Base
   belongs_to :company
+  belongs_to :department
   mount_uploader :sds, DataSheetUploader
 
   validates :number,
@@ -14,7 +15,6 @@ class DataSheet < ActiveRecord::Base
   validates :company, presence: true
 
   def self.search(query)
-    # where(:title, query) -> This would return an exact match of the query
     where('number ILIKE ? OR name ILIKE ? OR sds ILIKE ?', "%#{query}%", "%#{query}%", "%#{query}%")
   end
 end

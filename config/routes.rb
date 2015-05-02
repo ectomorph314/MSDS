@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update, :destroy]
 
   resources :companies do
+    resources :departments
     resources :data_sheets, except: [:index, :show]
   end
   # The priority is based upon order of creation: first created -> highest priority.

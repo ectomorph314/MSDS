@@ -11,6 +11,10 @@ FactoryGirl.define do
     sequence(:name) {|n| "#{n} Inc." }
   end
 
+  factory :department do
+    name 'Boston Branch'
+  end
+
   factory :data_sheet do
     number '357325853483'
     name 'Poison'

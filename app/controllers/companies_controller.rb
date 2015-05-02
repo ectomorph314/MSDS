@@ -57,7 +57,7 @@ class CompaniesController < ApplicationController
       redirect_to company_path(@company)
     else
       flash[:alert] = @company.errors.full_messages.join(', ')
-      redirect_to edit_company_path(@company.id)
+      redirect_to edit_company_path(@company)
     end
   end
 
@@ -73,6 +73,7 @@ class CompaniesController < ApplicationController
   end
 
   protected
+  
   def company_params
     params.require(:company).permit(:name)
   end

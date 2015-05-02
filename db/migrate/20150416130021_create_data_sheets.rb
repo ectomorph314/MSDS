@@ -4,7 +4,7 @@ class CreateDataSheets < ActiveRecord::Migration
       t.string :number, null: false
       t.string :name, null: false
       t.string :sds, null: false
-      t.references :company, null: false
+      t.references :company, null: false, foreign_key: true
 
       t.timestamps
     end
