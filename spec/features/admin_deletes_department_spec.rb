@@ -22,7 +22,8 @@ feature 'admin deletes department', %{
     CompanyUser.create(company_id: company.id, user_id: admin.id)
     sign_in_as(admin)
 
-    visit company_department_path(company, department)
+    visit company_path(company)
+    click_on department.name
     click_on 'Delete Department'
 
     expect(page).to have_content('Department deleted.')
@@ -36,7 +37,9 @@ feature 'admin deletes department', %{
     CompanyUser.create(company_id: company.id, user_id: user.id)
     sign_in_as(user)
 
-    visit company_department_path(company, department)
+    visit company_path(company)
+    click_on department.name
+
     expect(page).to_not have_content('Delete Department')
   end
 end

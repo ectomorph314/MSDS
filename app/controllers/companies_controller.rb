@@ -13,6 +13,7 @@ class CompaniesController < ApplicationController
   def show
     if CompanyUser.exists?(company_id: params[:id], user_id: current_user) || current_user.role == 'owner'
       @company = Company.find(params[:id])
+      @departments = Department.where(company_id: params[:id]).order(:name)
       @data_sheets = DataSheet.search(params[:search]).where(company_id: params[:id]).order(:number)
     else
       flash[:alert] = "You don't have access to this page!"
@@ -73,7 +74,7 @@ class CompaniesController < ApplicationController
   end
 
   protected
-  
+
   def company_params
     params.require(:company).permit(:name)
   end

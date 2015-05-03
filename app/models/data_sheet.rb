@@ -1,6 +1,5 @@
 class DataSheet < ActiveRecord::Base
   belongs_to :company
-  belongs_to :department
   mount_uploader :sds, DataSheetUploader
 
   validates :number,

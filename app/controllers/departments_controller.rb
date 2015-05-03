@@ -1,14 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    @departments = Department.where(company_id: params[:company_id]).order(:name)
-  end
-
-  def show
-    @department = Department.find(params[:id])
-  end
-
   def new
     if current_user.admin_access?(params[:company_id])
       @company = Company.find(params[:company_id])
@@ -24,7 +16,7 @@ class DepartmentsController < ApplicationController
     @department.company_id = params[:company_id]
     if @department.save
       flash[:success] = 'Department added successfully.'
-      redirect_to company_department_path(params[:company_id], @department)
+      redirect_to company_path(params[:company_id])
     else
       flash[:alert] = @department.errors.full_messages.join(', ')
       redirect_to new_company_department_path
@@ -32,7 +24,7 @@ class DepartmentsController < ApplicationController
   end
 
   def edit
-    if current_user.admin_access?(params[:company_id])
+    if current_user.admin_access?(params[:company_id]) || current_user.role == 'owner'
       @company = Company.find(params[:company_id])
       @department = Department.find(params[:id])
     else
@@ -45,7 +37,7 @@ class DepartmentsController < ApplicationController
     @department = Department.find(params[:id])
     if @department.update_attributes(department_params)
       flash[:success] = 'Department edited successfully.'
-      redirect_to company_department_path(params[:company_id], @department)
+      redirect_to company_path(params[:company_id])
     else
       flash[:alert] = @department.errors.full_messages.join(', ')
       redirect_to edit_company_department_path(params[:company_id], @department)
@@ -56,7 +48,7 @@ class DepartmentsController < ApplicationController
     department = Department.find(params[:id])
     department.destroy
     flash[:success] = 'Department deleted.'
-    redirect_to company_departments_path
+    redirect_to company_path(params[:company_id])
   end
 
   protected
