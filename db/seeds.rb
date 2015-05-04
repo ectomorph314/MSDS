@@ -45,6 +45,14 @@ if Rails.env.development?
   end
 
   15.times do
+    department = Department.new(
+      name: Faker::Commerce.department,
+      company_id: rand(1..Company.count)
+    )
+    department.save
+  end
+
+  20.times do
     data_sheet = DataSheet.new(
       number: Faker::Number.number(10),
       name: Faker::Commerce.product_name,

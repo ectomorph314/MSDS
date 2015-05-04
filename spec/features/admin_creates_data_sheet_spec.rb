@@ -11,8 +11,8 @@ feature 'admin creates new data sheet', %{
   # Acceptance Criteria:
   #   Admin signs in and goes to company show page
   # 	Admin clicks to create new data sheet
+  # 	Admin fills in a number (required)
   # 	Admin fills in a name (required)
-  #   Admin fills in description (optional)
   # 	Admin adds a pdf file (required)
   # 	Admin submits form
   # 	Admin is redirected to data sheet index page, if successful
@@ -24,7 +24,7 @@ feature 'admin creates new data sheet', %{
     CompanyUser.create(company_id: company.id, user_id: admin.id)
     sign_in_as(admin)
 
-    visit new_company_data_sheet_path(company.id)
+    visit new_company_data_sheet_path(company)
     fill_in 'Number', with: '42537426845'
     fill_in 'Name', with: 'Borosilicate'
     attach_file('Safety Data Sheet', "#{Rails.root}/spec/fixtures/OSHA3514.pdf")
@@ -41,7 +41,7 @@ feature 'admin creates new data sheet', %{
     CompanyUser.create(company_id: company.id, user_id: admin.id)
     sign_in_as(admin)
 
-    visit new_company_data_sheet_path(company.id)
+    visit new_company_data_sheet_path(company)
     click_on 'Submit'
 
     expect(page).to have_content("Number can't be blank")
@@ -55,7 +55,7 @@ feature 'admin creates new data sheet', %{
     CompanyUser.create(company_id: company.id, user_id: admin.id)
     sign_in_as(admin)
 
-    visit new_company_data_sheet_path(company.id)
+    visit new_company_data_sheet_path(company)
     attach_file('Safety Data Sheet', "#{Rails.root}/spec/fixtures/OSHA3514.jpg")
     click_on 'Submit'
 
@@ -69,7 +69,7 @@ feature 'admin creates new data sheet', %{
     CompanyUser.create(company_id: company.id, user_id: user.id)
     sign_in_as(user)
 
-    visit new_company_data_sheet_path(company.id)
+    visit new_company_data_sheet_path(company)
     expect(page).to have_content("You don't have access to this page!")
   end
 
@@ -77,7 +77,7 @@ feature 'admin creates new data sheet', %{
     admin = FactoryGirl.create(:user, role: 'admin')
     company = FactoryGirl.create(:company, user_id: admin.id)
 
-    visit new_company_data_sheet_path(company.id)
+    visit new_company_data_sheet_path(company)
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
 end

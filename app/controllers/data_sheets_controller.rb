@@ -35,7 +35,6 @@ class DataSheetsController < ApplicationController
 
   def update
     @data_sheet = DataSheet.find(params[:id])
-    @data_sheet.company_id = params[:company_id]
     if @data_sheet.update_attributes(data_sheet_params)
       flash[:success] = 'Data sheet edited successfully.'
       redirect_to company_path(params[:company_id])
@@ -53,6 +52,7 @@ class DataSheetsController < ApplicationController
   end
 
   protected
+
   def data_sheet_params
     params.require(:data_sheet).permit(:number, :name, :sds)
   end

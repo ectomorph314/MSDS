@@ -15,10 +15,10 @@
       </div>
       <% if current_user.admin_access?(params[:id]) || current_user.role == 'owner' %>
         <div class='small-12 medium-6 large-3 columns'>
-          <%= link_to 'Edit Data Sheet', edit_company_data_sheet_path(params[:id], data_sheet) %>
+          <%= link_to 'Edit Data Sheet', edit_company_data_sheet_path(params[:id], data_sheet), class: 'tiny button radius' %>
         </div>
         <div class='small-12 medium-6 large-3 columns'>
-          <%= link_to 'Delete Data Sheet', company_data_sheet_path(params[:id], data_sheet), data: { confirm: 'Are you sure?' }, method: :delete %>
+          <%= link_to 'Delete Data Sheet', company_data_sheet_path(params[:id], data_sheet), data: { confirm: 'Are you sure?' }, method: :delete, class: 'tiny button radius' %>
         </div>
       <% end %>
     </div>
